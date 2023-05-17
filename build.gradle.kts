@@ -8,6 +8,7 @@ repositories {
 
 dependencies {
     implementation("org.apache.lucene:lucene-core:9.6.0")
+    implementation("org.apache.lucene:lucene-queryparser:9.6.0")
     testImplementation(kotlin("test"))
 }
 

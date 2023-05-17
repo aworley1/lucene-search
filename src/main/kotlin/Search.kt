@@ -1,15 +1,19 @@
 import org.apache.lucene.index.DirectoryReader
 import org.apache.lucene.index.Term
 import org.apache.lucene.search.IndexSearcher
-import org.apache.lucene.search.TermQuery
+import org.apache.lucene.search.PrefixQuery
 
 fun main() {
     val reader = DirectoryReader.open(Index.index)
     val searcher = IndexSearcher(reader)
 
-    val query = TermQuery(Term("name", "peep"))
+    val query = PrefixQuery(Term("model", "iphone"))
     val results = searcher.search(query, 5)
 
-    val doc = results.scoreDocs.first()
-    println(searcher.indexReader.storedFields().document(doc.doc))
+    println(results.totalHits)
+
+    results.scoreDocs.forEach {
+        println(searcher.indexReader.storedFields().document(it.doc))
+    }
+
 }

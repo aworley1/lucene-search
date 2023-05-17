@@ -13,23 +13,25 @@ object Index {
     val writer = IndexWriter(index, indexWriterConfig)
 
     init {
-        val data = mapOf(
-            "blah blah blah" to "1",
-            "three blind mice" to "2",
-            "little bo peep" to "3",
-            "hello world" to "4",
-            "i am the walrus" to "5",
+        val data = listOf(
+            "Apple" to "iPhone 11",
+            "Apple" to "iPhone 12",
+            "Samsung" to "Galaxy 3",
+            "Samsung" to "Galaxy 4",
+            "Nokia" to "3210",
         )
 
         data.forEach {
-            add(it.key, it.value)
+            add(it.first, it.second)
         }
+
+        writer.close()
     }
 
-    private fun add(name: String, id: String) {
+    private fun add(make: String, model: String) {
         val document = Document().apply {
-            add(TextField("name", name, Field.Store.YES))
-            add(TextField("id", id, Field.Store.YES))
+            add(TextField("make", make, Field.Store.YES))
+            add(TextField("model", model, Field.Store.YES))
         }
 
         writer.addDocument(document)
